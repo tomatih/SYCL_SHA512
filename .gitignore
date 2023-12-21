@@ -32,3 +32,8 @@
 *.out
 *.app
 
+### CLion paths
+cmake-build-*
+.cache/
+.idea/
+
