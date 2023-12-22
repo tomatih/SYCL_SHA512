@@ -37,3 +37,5 @@ cmake-build-*
 .cache/
 .idea/
 
+### Hand compilation paths
+build
