@@ -124,10 +124,3 @@ if(CHECK_CORRECTNESS)
 endif()
 target_link_libraries(Task4 PRIVATE PerfLib)
 target_link_libraries(Task4 PRIVATE TargetLib)
-
-# add "run" command
-add_custom_target(run
-    COMMAND Task4
-    DEPENDS Task4
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
