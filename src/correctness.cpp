@@ -1,6 +1,5 @@
 #include "correctness.hpp"
 
-#include <cstdint>
 #include <iostream>
 #include <openssl/sha.h>
 #include <stdexcept>
@@ -48,8 +47,8 @@ void check_correctness(const std::string& input_file_path){
   // get passwords to hash
   auto password_list = read_in_passwords(input_file_path);
   // allocate message  and hash memory
-  uint64_t* messages = (uint64_t *)std::malloc(1024/8 * password_list.size());
-  uint64_t* hashes = (uint64_t *) std::malloc(512/8 * password_list.size());
+  auto messages = (uint64_t *)std::malloc(1024 / 8 * password_list.size());
+  auto hashes = (uint64_t *) std::malloc(512 / 8 * password_list.size());
   // memory safety
   if(messages == nullptr || hashes == nullptr){
     throw std::runtime_error("Not enough system memory to process given list");

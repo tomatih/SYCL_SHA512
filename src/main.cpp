@@ -13,7 +13,7 @@ void print_usage(){
                 "Available modes:\n"
                #ifdef CORRECTNESS
                "\tc {input_file} - runs a check whether the implementations returns"
-               " expected has values for given inputs. Checked agains OpenSSL\n"
+               " expected has values for given inputs. Checked against OpenSSL\n"
                #endif
                "\tp {input_file} - runs a performance comparison between the CPU and GPU on a given input file\n"
                "\tt {dictionary_file} {target_file} - runs a dictionary attack against supplied target hashes\n";

@@ -1,12 +1,10 @@
 #include "performance.hpp"
 
 #include <chrono>
-#include <cstdint>
 #include <iostream>
 #ifdef GPU
     #include <sycl/sycl.hpp>
 #endif
-
 
 #include "utils.hpp"
 #include "sha512.hpp"
@@ -22,8 +20,8 @@ void performance_comparison(const std::string& input_file_path){
   auto password_list = read_in_passwords(input_file_path);
   std::cout << "Read in " << password_list.size() << " passwords"<< std::endl;
   // allocate message  and hash memory
-  uint64_t* messages = (uint64_t *)std::malloc(1024/8 * password_list.size());
-  uint64_t* hashes = (uint64_t *) std::malloc(512/8 * password_list.size());
+  auto messages = (uint64_t *)std::malloc(1024 / 8 * password_list.size());
+  auto hashes = (uint64_t *) std::malloc(512 / 8 * password_list.size());
   // memory safety
   if(messages == nullptr || hashes == nullptr){
     throw std::runtime_error("Not enough system memory to process given list");
@@ -42,8 +40,8 @@ void performance_comparison(const std::string& input_file_path){
   for(size_t i = 0; i < PERFORMANCE_ITERATIONS; i++){
     start = std::chrono::high_resolution_clock::now();
     // process all messages
-    for(size_t i=0; i<password_list.size(); i++){
-      hash_message(messages, hashes, i);
+    for(size_t j=0; j<password_list.size(); j++){
+      hash_message(messages, hashes, j);
     }
     stop = std::chrono::high_resolution_clock::now();
     // calculate time delta
@@ -55,7 +53,7 @@ void performance_comparison(const std::string& input_file_path){
   // GPU AREA
   #ifdef GPU
     std::cout << "Starting GPU section" << std::endl;
-    // reset accumlator
+    // reset accumulator
     whole_duration = nanoseconds(0);
     // Create GPU context
     auto q = sycl::queue{ sycl::gpu_selector_v };
@@ -78,7 +76,7 @@ void performance_comparison(const std::string& input_file_path){
     // run actual cycles
     for(size_t i = 0; i<PERFORMANCE_ITERATIONS; i++){
       start = std::chrono::high_resolution_clock::now();
-      // memory transfers are included in timing as they are an importat overhead
+      // memory transfers are included in timing as they are an important overhead
       q.memcpy(message_d, messages, 1024/8 * password_list.size()).wait();
 
       q.parallel_for(sycl::range<1>{password_list.size()},

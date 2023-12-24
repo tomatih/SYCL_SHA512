@@ -30,7 +30,7 @@ std::set<std::array<uint64_t, 512/64>> read_in_targets(const std::string& file_p
       throw std::runtime_error("Target hash " + line + " is not a valid hexadecimal string");
     }
     // allocate memory
-    std::array<uint64_t, 512/64> hash;
+    std::array<uint64_t, 512/64> hash{};
     // convert to numerical
     for(size_t i=0;i<hash.size();i++){
       std::stringstream ss;
@@ -50,8 +50,8 @@ void target_cracking(const std::string& dictionary_path, const std::string& targ
   auto targets = read_in_targets(target_path);
   
   // allocate message  and hash memory
-  uint64_t* messages = (uint64_t *)std::malloc(1024/8 * dictionary.size());
-  uint64_t* hashes = (uint64_t *) std::malloc(512/8 * dictionary.size());
+  auto messages = (uint64_t *)std::malloc(1024 / 8 * dictionary.size());
+  auto hashes = (uint64_t *) std::malloc(512 / 8 * dictionary.size());
   // memory safety
   if(messages == nullptr || hashes == nullptr){
     throw std::runtime_error("Not enough system memory to process given list");
@@ -90,7 +90,7 @@ void target_cracking(const std::string& dictionary_path, const std::string& targ
   size_t found = 0;
   for(size_t i=0; i<dictionary.size();i++){
     // convert from a raw pointer
-    std::array<uint64_t, 512/64> hash;
+    std::array<uint64_t, 512/64> hash{};
     std::copy(hashes + i*8, hashes + (i+1)*8, std::begin(hash));
     // match test
     if(targets.contains(hash)){
