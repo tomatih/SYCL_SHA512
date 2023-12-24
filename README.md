@@ -49,7 +49,15 @@ After the build files have been generated the project can be built using:
 `cmake --build build --target all`
 
 
-After building the program can be run, by executing the `GPU_SHA512` to see 
-available modes and required arguments. 
+After building the program can be run, by executing the `GPU_SHA512` 
+executable to see available modes and required arguments. 
 
+## Performance results
 
+As part of the assessment the GPU vs CPU performance has been compared for 
+increasing dictionary lengths. The data for the comparison was generated 
+using a system equipped with: AMD Ryzen 7 2700, 16 GB of RAM and an NVIDIA 
+GeForce RTX 3060 Ti Lite Hash Rate. The resulting data is visible in the 
+plot below 
+
+![performance_plot](performance/results.svg)
