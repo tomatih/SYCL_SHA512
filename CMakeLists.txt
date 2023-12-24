@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.20...3.27)
+cmake_minimum_required(VERSION 3.22...3.27)
 
 project(
         Task4
         VERSION 1.0
-        LANGUAGES CXX)
+        LANGUAGES C CXX)
 
 # User options
 set(CHECK_CORRECTNESS ON CACHE BOOL "Build with OpenSSL correctness checking")
@@ -37,7 +37,9 @@ if(USE_GPU)
     add_compile_definitions(GPU)
 
     # link SYCL
-    set(IntelSYCL_DIR /opt/intel/oneapi/compiler/latest/linux/IntelSYCL)
+    set(SYCL_LIBRARY_DIR /opt/intel/oneapi/compiler/latest/lib)
+            #/cmake/IntelSYCL)
+    set(SYCL_INCLUDE_DIR /opt/intel/oneapi/compiler/latest/include)
     find_package(IntelSYCL REQUIRED)
 
     # construct SYCL target list
