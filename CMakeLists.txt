@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22...3.27)
 
 project(
-        Task4
+        GPU_SHA512
         VERSION 1.0
         LANGUAGES C CXX)
 
@@ -93,7 +93,7 @@ add_library(PerfLib src/performance.cpp src/performance.hpp)
 add_library(TargetLib src/target_match.cpp src/target_match.hpp)
 
 # Add the output executable
-add_executable(Task4 src/main.cpp)
+add_executable(GPU_SHA512 src/main.cpp)
 
 # add sycl
 if(USE_GPU)
@@ -103,7 +103,7 @@ if(USE_GPU)
     endif()
     add_sycl_to_target(TARGET PerfLib SOURCES src/performance.cpp)
     add_sycl_to_target(TARGET TargetLib SOURCES src/target_match.cpp)
-    add_sycl_to_target(TARGET Task4 SOURCES src/main.cpp)
+    add_sycl_to_target(TARGET GPU_SHA512 SOURCES src/main.cpp)
 endif()
 
 # Link libraries
@@ -120,7 +120,7 @@ target_link_libraries(TargetLib PRIVATE SHALib)
 
 # Link final executable
 if(CHECK_CORRECTNESS)
-    target_link_libraries(Task4 PRIVATE CorrectLib)
+    target_link_libraries(GPU_SHA512 PRIVATE CorrectLib)
 endif()
-target_link_libraries(Task4 PRIVATE PerfLib)
-target_link_libraries(Task4 PRIVATE TargetLib)
+target_link_libraries(GPU_SHA512 PRIVATE PerfLib)
+target_link_libraries(GPU_SHA512 PRIVATE TargetLib)

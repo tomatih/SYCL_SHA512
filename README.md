@@ -45,6 +45,11 @@ second one disables GPU acceleration and forces a CPU fallback.
 
 ### Building and Running
 
-TODO
+After the build files have been generated the project can be built using:
+`cmake --build build --target all`
+
+
+After building the program can be run, by executing the `GPU_SHA512` to see 
+available modes and required arguments. 
 
 
