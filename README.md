@@ -61,3 +61,11 @@ GeForce RTX 3060 Ti Lite Hash Rate. The resulting data is visible in the
 plot below 
 
 ![performance_plot](performance/results.svg)
+
+## Known Limitations
+
+- Hashing payload is limited to strings with maximum length of 111
+- There is no input paging. As such the program will try to upload the whole 
+  input file to VRAM
+- There was no exploration of better work group sizing, and the program 
+  relies on default splitting
